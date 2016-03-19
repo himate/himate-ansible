@@ -1,0 +1,28 @@
+- name: Download tengine
+  get_url:
+    url={{ tengine.package.url }}
+    dest=/tmp/tengine-{{ tengine.package.version }}.tar.gz
+    checksum={{ tengine.package.checksum }}
+
+- name: Untar tengine
+  unarchive:
+    src=/tmp/tengine-{{ tengine.package.version }}.tar.gz
+    dest=/tmp
+    copy=no
+
+- name: Running ./configure and make for tengine
+  command: "{{ item }}"
+  args:
+    chdir: "/tmp/tengine-{{ tengine.package.version }}"
+    creates: /usr/local/nginx
+  with_items:
+    - "./configure --prefix={{ tengine.root_dir }}"
+    - make
+
+- name: Running make install for tengine
+  command: "{{ item }}"
+  args:
+    chdir: "/tmp/tengine-{{ tengine.package.version }}"
+    creates: /usr/local/nginx
+  with_items:
+    - make install

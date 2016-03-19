@@ -1,0 +1,15 @@
+- hosts: all
+
+  roles:
+    - base
+    - ssh
+    - nodejs
+    - tengine
+
+  vars_files:
+    ######
+    # Users / Groups
+    ######
+    - roles/users/vars/users/admins.yml
+    - roles/users/vars/groups/admins.yml
+    - roles/users/vars/users/himate.yml

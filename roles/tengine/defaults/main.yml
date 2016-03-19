@@ -1,0 +1,6 @@
+tengine:
+  root_dir: "/etc/tengine"
+  package:
+    version: "2.1.2"
+    url: "http://tengine.taobao.org/download/tengine-2.1.2.tar.gz"
+    checksum: "md5:7f898a0dbb5162ff1eb19aeb9d53bec3"

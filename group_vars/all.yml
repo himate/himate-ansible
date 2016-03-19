@@ -1,0 +1,25 @@
+##########
+# Headers for config files
+##########
+ansible:
+  headers:
+    bash: "# THIS FILE IS MANAGED BY ANSIBLE"
+
+##########
+# merge all user and group lists into dictionary
+##########
+access_management:
+  users: 
+    "{{ 
+       (users_admin | default([])) +
+       (users_himate | default([])) +
+       (users_developer | default([])) +
+       (users_qa | default([])) 
+     }}"
+  groups: 
+    "{{ 
+       (groups_admin | default([])) + 
+       (groups_deploy | default([])) +
+       (groups_developer | default([])) +
+       (groups_qa | default([])) 
+     }}"

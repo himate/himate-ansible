@@ -1,0 +1,17 @@
+- name: Add groups
+  group:
+    name={{ item.name }}
+    gid={{ item.gid }}
+    state={{ item.state }}
+  with_items: "{{ access_management.groups }}"
+
+
+- name: Add admin groups to sudoers
+  template: 
+    src=templates/sudoers.group.j2
+    dest=/etc/sudoers.d/{{ item.name }}_group
+    mode=0440
+    owner=root
+    group=root
+  when: "{{ item.sudoers | default(False) }}"
+  with_items: "{{ access_management.groups }}"
