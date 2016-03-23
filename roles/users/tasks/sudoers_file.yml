@@ -5,3 +5,4 @@
     owner=root
     group=root
     mode=440
+  when: "{{ configure_sudo | default(True) }}"
