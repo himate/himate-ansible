@@ -13,7 +13,6 @@ SENSITIVE_VARS="roles/ssh/defaults/main.yml\
                 roles/users/vars/users/himate.yml\
                 roles/users/vars/users/deploy.yml"
 
-
 if [ "$1" != "encrypt" ] && [ "$1" != "decrypt" ]
 then
     echo "'encrypt' or 'decrypt' allowed"
