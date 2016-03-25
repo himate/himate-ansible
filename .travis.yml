@@ -18,6 +18,8 @@ install:
 
 script:
   - ansible-playbook -i inventories/travis ${PLAYBOOK} --vault-password-file vault_pass --syntax-check
+  - ansible-playbook -i inventories/travis ${PLAYBOOK} --vault-password-file vault_pass --connection=local --become
+  - ansible-playbook -i inventories/travis ${PLAYBOOK} --vault-password-file vault_pass --connection=local --become | grep -q 'changed=0.*failed=0' && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)
 
 after_script:
   - shred vault_pass
