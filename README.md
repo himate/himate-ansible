@@ -1,5 +1,5 @@
 ### Status
-[![Build Status](https://travis-ci.org/himate/himate-ansible.svg?branch=master)](https://api.travis-ci.org/himate/himate-ansible)
+[![Build Status](https://api.travis-ci.org/himate/himate-ansible.svg?branch=master)](https://travis-ci.org/himate/himate-ansible)
 
 
 
