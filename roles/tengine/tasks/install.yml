@@ -14,7 +14,7 @@
   command: "{{ item }}"
   args:
     chdir: "/tmp/tengine-{{ tengine.package.version }}"
-    creates: /usr/local/nginx
+    creates: "{{ tengine.root_dir }}"
   with_items:
     - "./configure --prefix={{ tengine.root_dir }}"
     - make
@@ -23,6 +23,6 @@
   command: "{{ item }}"
   args:
     chdir: "/tmp/tengine-{{ tengine.package.version }}"
-    creates: /usr/local/nginx
+    creates: "{{ tengine.root_dir }}"
   with_items:
     - make install

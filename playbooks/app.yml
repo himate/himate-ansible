@@ -1,0 +1,20 @@
+- hosts: app
+  become: yes
+  no_log: yes
+  roles:
+    - ../roles/base
+    - ../roles/ssh
+    - ../roles/nodejs
+    - ../roles/tengine
+
+  vars_files:
+    ######
+    # Users / Groups
+    ######
+    - ../roles/users/vars/users/admins.yml
+    - ../roles/users/vars/groups/admins.yml
+    - ../roles/users/vars/users/himate.yml
+    - ../roles/users/vars/users/deploy.yml
+
+  tags:
+    - apps
