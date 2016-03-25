@@ -15,13 +15,15 @@ before_install:
 
 install:
   - pip install ansible==${ANSIBLE_VERSION}
+  - ${TRAVIS_BUILD_DIR}/sensitive_data.sh decrypt templates
 
 script:
-  - ansible-playbook -i inventories/travis ${PLAYBOOK} --vault-password-file vault_pass --syntax-check
-  - ansible-playbook -i inventories/travis ${PLAYBOOK} --vault-password-file vault_pass --connection=local --become
-  - ansible-playbook -i inventories/travis ${PLAYBOOK} --vault-password-file vault_pass --connection=local --become | grep -q 'changed=0.*failed=0' && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)
+  - "ansible-playbook -i inventories/travis ${PLAYBOOK} --vault-password-file vault_pass --syntax-check"
+  - "ansible-playbook -i inventories/travis ${PLAYBOOK} --vault-password-file vault_pass --connection=local --become"
+  - "ansible-playbook -i inventories/travis ${PLAYBOOK} --vault-password-file vault_pass --connection=local --become | tee /tmp/output.txt; grep -q 'changed=0.*failed=0' /tmp/output.txt && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)"
 
 after_script:
+  - ${TRAVIS_BUILD_DIR}/sensitive_data.sh encrypt templates
   - shred vault_pass
 
 env:
