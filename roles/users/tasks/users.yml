@@ -8,7 +8,7 @@
     home={{ item.home | default("/home/" + item.username) }}
     comment={{ item.name }} ({{ item.email }})
   when: "{{ item.state == 'present' }}"
-  with_items: "{{ access_management.users }}"
+  with_items: "{{ user_list }}"
 
 
 - name: Remove users
@@ -18,16 +18,16 @@
     force=yes
     state=absent
   when: "{{ item.state == 'absent' }}"
-  with_items: "{{ access_management.users }}"
+  with_items: "{{ user_list }}"
 
 
 - name: Add authorized keys for users
   authorized_key:
     user={{ item.username }}
-    key={{ lookup('file', item.authorized_keys) }}
-    state={{ item.key_state | default('present') }}
+    key={{ lookup('pipe', ansible.decrypt_file_cmd + item.authorized_keys) }}
+    state={{ item.username_state | default('present') }}
   when: "{{ item.authorized_keys is defined and item.state == 'present' }}"
-  with_items: "{{ access_management.users }}"
+  with_items: "{{ user_list }}"
 
 
 - name: Ensure .ssh dir exists for user
@@ -38,29 +38,29 @@
     state=directory 
     mode=700
   when: "{{ item.state == 'present' }}"
-  with_items: "{{ access_management.users }}"
+  with_items: "{{ user_list }}"
 
 
-- name: Add private keys for user
+- name: Add private usernames for user
   copy: 
-    src={{ item.private_key }}
+    src={{ item.private_username }}
     dest=/home/{{ item.username }}/.ssh/id_rsa
     owner={{ item.username }}
     group={{ item.username }}
     mode=600
-  when: "{{ item.private_key is defined and item.state == 'present' }}"
-  with_items: "{{ access_management.users }}"
+  when: "{{ item.private_username is defined and item.state == 'present' }}"
+  with_items: "{{ user_list }}"
 
 
-- name: Add public keys for user
+- name: Add public usernames for user
   copy: 
-    src={{ item.public_key }}
+    src={{ item.public_username }}
     dest=/home/{{ item.username }}/.ssh/id_rsa.pub
     owner={{ item.username }}
     group={{ item.username }}
     mode=600
-  when: "{{ item.public_key is defined and item.state == 'present' }}"
-  with_items: "{{ access_management.users }}"
+  when: "{{ item.public_username is defined and item.state == 'present' }}"
+  with_items: "{{ user_list }}"
 
 
 - name: Add vimrc for users
@@ -71,4 +71,4 @@
     group={{ item.username }}
     mode=644
   when: "{{ item.vimrc is defined and item.state == 'present' }}"
-  with_items: "{{ access_management.users }}"
+  with_items: "{{ user_list }}"

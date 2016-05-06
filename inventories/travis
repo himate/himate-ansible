@@ -3,3 +3,12 @@ travis-master
 
 [app]
 travis-app
+
+######
+# Grouping
+######
+[app_travis:children]
+app
+
+[master_travis:children]
+master

@@ -2,18 +2,7 @@
   become: yes
   no_log: yes
   roles:
-    - ../roles/base
-    - ../roles/ssh
-# TODO: hosts role for /etc/hosts
-
-  vars_files:
-    ######
-    # Users / Groups
-    ######
-    - ../roles/users/vars/users/admins.yml
-    - ../roles/users/vars/groups/admins.yml
-    - ../roles/users/vars/users/himate.yml
-    - ../roles/users/vars/users/deploy.yml
+    - ../roles/common
 
   tags:
     - master
