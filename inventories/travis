@@ -1,8 +1,8 @@
 [master]
-vg-master
+travis-master
 
 [app]
-vg-app
+travis-app
 
 ######
 # Grouping
