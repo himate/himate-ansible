@@ -3,7 +3,7 @@
 #########
 # Specify ansible repository and domain here
 #########
-ANSIBLE_REPO=git@github.com:himate/himate-ansible.git
+ANSIBLE_REPO=git@github.com:himate/himate-infrastructure.git
 REPO_DOMAIN=github.com
 
 

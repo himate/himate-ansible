@@ -1,8 +1,8 @@
 ### Status
-[![Build Status](https://api.travis-ci.org/himate/himate-ansible.svg?branch=master)](https://travis-ci.org/himate/himate-ansible)
+[![Build Status](https://api.travis-ci.org/himate/himate-infrastructure.svg?branch=master)](https://travis-ci.org/himate/himate-infrastructure)
 
 
 
-## HiMate Ansible Provisioning
+## HiMate Infrastructure
 
 More documentation following soon
