@@ -3,3 +3,12 @@ vg-master
 
 [app]
 vg-app
+
+######
+# Grouping
+######
+[app_dev:children]
+app
+
+[master_dev:children]
+master

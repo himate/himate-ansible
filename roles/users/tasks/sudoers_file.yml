@@ -5,4 +5,4 @@
     owner=root
     group=root
     mode=440
-  when: "{{ configure_sudo | default(True) }}"
+  when: "{{ configure_sudoers_top_file | default(True) }}"

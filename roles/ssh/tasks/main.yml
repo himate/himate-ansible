@@ -1,12 +1,18 @@
+- name: ssh distribution specific vars
+  include_vars: "{{ ansible_distribution }}{{ ansible_distribution_version }}.yml"
+
+- name: ssh distribution specific install
+  include: "{{ ansible_distribution }}{{ ansible_distribution_version }}.yml"
+  when: "{{ sshd_do_configure | default(True) }}"
+
 - name: Add sshd_config
   template:
-    src=templates/sshd_config.j2
-    dest=/etc/ssh/sshd_config
-    owner=root
-    group=root
-    mode=644
-  notify:
-    - restart sshd
-  when: "{{ configure_sshd | default(True) }}"
+    src={{ sshd_config_template }}
+    dest={{ sshd_config_dest }}
+    owner={{ sshd_config_owner }}
+    group={{ sshd_config_group }}
+    mode={{ sshd_config_mode }}
+  notify: "{{ sshd_service_restart_id }}"
+  when: "{{ sshd_do_configure | default(True) }}"
   vars:
-    all_groups: "{{ access_management.groups }}"
+    all_groups: "{{ user_group_list }}"

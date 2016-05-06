@@ -1,4 +1,6 @@
-configure_sshd: False
+#######
+# Ansible connection
+#######
 ansible_connection: "ssh"
 ansible_user: "vagrant"
 ansible_port: 22

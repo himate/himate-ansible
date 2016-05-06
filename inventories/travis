@@ -1,5 +1,14 @@
 [master]
-travis-master
+vg-master
 
 [app]
-travis-app
+vg-app
+
+######
+# Grouping
+######
+[app_travis:children]
+app
+
+[master_travis:children]
+master
