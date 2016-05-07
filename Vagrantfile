@@ -5,7 +5,6 @@
 system('.vagrant/ssh/agent.sh')
 
 network = '10.10.10'
-starting_ip_suffix = 10
 hostname_prefix = 'vg'
 
 boxes = {
@@ -53,20 +52,14 @@ Vagrant.configure(2) do |config|
 	vb.memory = 1024
   end
 
-  host_ip = starting_ip_suffix
   boxes.each do |name, box|
     hostname = "#{hostname_prefix}-#{name}"
-    ip_addr = "#{network}.#{host_ip}"
     config.vm.define name, autostart: true do |host|
       host.vm.hostname = hostname
       host.vm.box = box[:dist]
 
 	  # set custom network address
-	  if box.has_key?(:ip) then
-	    host.vm.network 'private_network', ip: box[:ip]
-	  else
-        host.vm.network 'private_network', ip: ip_addr
-	  end
+      host.vm.network 'private_network', ip: box[:ip]
 
 	  # set custom hardware resources
       config.vm.provider "virtualbox" do |vb|
@@ -93,6 +86,5 @@ Vagrant.configure(2) do |config|
 	  end
       
     end
-    host_ip += 1
   end
 end
