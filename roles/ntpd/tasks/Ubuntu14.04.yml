@@ -1,0 +1,6 @@
+- name: Install ntpd packages
+  apt:
+    name={{ item }}
+    state=present
+    update_cache=yes
+  with_items: "{{ ntpd_packages }}"

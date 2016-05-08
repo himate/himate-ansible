@@ -1,0 +1,14 @@
+- name: Include distribution specific variables
+  include_vars: "{{ ansible_distribution }}{{ ansible_distribution_version }}.yml"
+
+- name: Include distribution specific installation
+  include: "{{ ansible_distribution }}{{ ansible_distribution_version }}.yml"
+
+- name: Deploy ntpd.conf
+  template:
+    src={{ ntpd_conf_template }}
+    dest={{ ntpd_conf_file }}
+    mode={{ ntpd_conf_file_mode }}
+    owner={{ ntpd_conf_file_owner }}
+    group={{ ntpd_conf_file_group }}
+  notify: "{{ ntpd_restart_id }}"

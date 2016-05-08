@@ -1,0 +1,8 @@
+ntpd_conf_file: "/etc/ntp.conf"
+ntpd_service: "ntp"
+ntpd_conf_file_mode: "644"
+ntpd_conf_file_owner: "root"
+ntpd_conf_file_group: "root"
+ntpd_conf_template: "templates/ntp.conf.j2"
+ntpd_packages:
+  - "ntp"
