@@ -1,0 +1,11 @@
+- name: Include distribution specific variables
+  include_vars: "{{ ansible_distribution }}{{ ansible_distribution_version }}.yml"
+
+- name: Deploy version pinning of packages
+  template:
+    src=templates/pinning.j2
+    dest={{ pinning_conf_dir }}/{{ item.key | regex_replace('[^\w]', '') }}
+    owner={{ pinning_user }}
+    group={{ pinning_group }}
+    mode={{ pinning_conf_mode }}
+  with_dict: "{{ pinning_config_map }}"

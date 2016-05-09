@@ -1,0 +1,4 @@
+pinning_conf_dir: "/etc/apt/preferences.d"
+pinning_user: "root"
+pinning_group: "root"
+pinning_conf_mode: "644"
