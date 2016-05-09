@@ -8,3 +8,9 @@ ansible:
   headers:
     bash: "### THIS FILE IS MANAGED BY ANSIBLE ###"
     python: "### THIS FILE IS MANAGED BY ANSIBLE ###"
+
+#######
+# Pinned package versions
+#######
+pinning_config_map:
+  nodejs: "5.11.1*"
