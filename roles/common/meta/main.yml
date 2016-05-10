@@ -1,5 +1,9 @@
+---
+
 dependencies:
   - { role: users }
   - { role: ssh }
   - { role: pinning }
   - { role: ntpd }
+
+...

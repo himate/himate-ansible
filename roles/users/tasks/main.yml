@@ -1,3 +1,5 @@
+---
+
 - name: Inlcude group creation
   include: groups.yml
 
@@ -9,3 +11,5 @@
 # include sudoers last to avoid permission issues!
 - name: Include sudoers configuration
   include: sudoers_file.yml
+
+...

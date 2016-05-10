@@ -1,3 +1,5 @@
+---
+
 - name: Add sudoers top file
   copy:
     src=files/sudoers
@@ -6,3 +8,5 @@
     group=root
     mode=440
   when: "{{ configure_sudoers_top_file | default(True) }}"
+
+...

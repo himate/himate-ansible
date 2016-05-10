@@ -1,4 +1,8 @@
+---
+
 - name: Install sshd for Ubuntu14.04
   apt:
     name={{ sshd_pkg }}
     update_cache=yes
+
+...
