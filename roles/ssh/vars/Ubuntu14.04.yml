@@ -1,3 +1,5 @@
+---
+
 sshd_service: "ssh"
 sshd_pkg: "openssh-server"
 sshd_config_dest: "/etc/ssh/sshd_config"
@@ -5,3 +7,5 @@ sshd_config_owner: "root"
 sshd_config_group: "root"
 sshd_config_mode: "644"
 sshd_config_template: "Ubuntu14_04.sshd_config.j2"
+
+...

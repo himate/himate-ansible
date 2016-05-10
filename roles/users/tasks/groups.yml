@@ -1,3 +1,5 @@
+---
+
 - name: Add groups
   group:
     name={{ item.groupname }}
@@ -15,3 +17,5 @@
     group=root
   when: "{{ item.sudoers | default(False) }}"
   with_items: "{{ user_group_list }}"
+
+...

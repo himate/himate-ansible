@@ -1,3 +1,5 @@
+---
+
 ##########
 # Headers for config files
 ##########
@@ -14,3 +16,5 @@ ansible:
 #######
 pinning_config_map:
   nodejs: "5.11.1*"
+
+...

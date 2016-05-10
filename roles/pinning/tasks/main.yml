@@ -1,3 +1,5 @@
+---
+
 - name: Include distribution specific variables
   include_vars: "{{ ansible_distribution }}{{ ansible_distribution_version }}.yml"
 
@@ -9,3 +11,5 @@
     group={{ pinning_group }}
     mode={{ pinning_conf_mode }}
   with_dict: "{{ pinning_config_map }}"
+
+...

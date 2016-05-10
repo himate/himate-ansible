@@ -1,3 +1,5 @@
+---
+
 - hosts: master
   become: yes
   no_log: yes
@@ -6,3 +8,5 @@
 
   tags:
     - master
+
+...
