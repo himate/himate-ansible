@@ -1,17 +1,9 @@
 ---
 
-- name: Add nodejs repository key
-  apt_key:
-    url={{ nodejs_repo_key }}
+- name: Include distribution specific variables
+  include_vars: "{{ ansible_distribution }}{{ ansible_distribution_version }}.yml"
 
-
-- name: Add nodejs repository to apt
-  apt_repository:
-    repo={{ nodejs_repo }}
-
-
-- name: Install nodejs
-  apt:
-    name={{ nodejs_pkg }}
+- name: Include distribution specific installation
+  include: "{{ ansible_distribution }}{{ ansible_distribution_version }}.yml"
 
 ...

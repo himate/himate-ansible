@@ -1,0 +1,17 @@
+---
+
+- name: Add nodejs repository key
+  apt_key:
+    url={{ nodejs_repo_key }}
+
+
+- name: Add nodejs repository to apt
+  apt_repository:
+    repo={{ nodejs_repo }}
+
+
+- name: Install nodejs
+  apt:
+    name={{ nodejs_pkg }}
+
+...
