@@ -1,0 +1,10 @@
+---
+
+logrotate_user: "root"
+logrotate_group: "root"
+logrotate_conf_mode: "644"
+logrotate_conf_dir: "/etc/logrotate.d"
+logrotate_packages:
+  - "logrotate"
+
+...
