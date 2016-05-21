@@ -1,0 +1,102 @@
+{
+  "description": "Build Ubuntu 14.04 amd64 QEMU Image",
+
+  "variables": {
+    "outputs_dir": ".packer/builds",
+    "ssh_user": "{{env `PACKER_SSH_USER`}}",
+    "ssh_user_pass": "{{env `PACKER_SSH_USER_PASS`}}",
+	"ssh_port": "{{env `PACKER_SSH_PORT`}}",
+    "ssh_wait_timeout": "10m",
+	"iso_url": "{{env `PACKER_ISO_URL`}}",
+	"iso_checksum": "{{env `PACKER_ISO_CHECKSUM`}}",
+	"iso_checksum_type": "{{env `PACKER_ISO_CHECKSUM_TYPE`}}",
+    "vm_name": "{{env `PACKER_VM_NAME`}}",
+	"disk_size": "{{env `PACKER_DISK_SIZE`}}",
+	"locale": "en_US",
+    "kbd_lang": "us",
+    "kbd_layout": "USA",
+    "hostname": "{{env `PACKER_HOST_NAME`}}",
+	"domain": "{{env `PACKER_DOMAIN_NAME`}}",
+    "timezone": "{{env `PACKER_TIMEZONE`}}",
+    "ssh_user_id": "{{env `PACKER_SSH_USER_ID`}}",
+	"ansible_groups": "{{env `PACKER_ANSIBLE_GROUP`}}",
+	"vm_accelerator": "{{env `PACKER_ACCELERATOR`}}"
+  },
+
+  "builders":
+  [
+    {
+      "type": "qemu",
+      "name": "ubuntu14.04_{{user `vm_name`}}_qemu",
+      "headless": "false",
+      "accelerator": "{{user `vm_accelerator`}}",
+      "disk_interface": "virtio",
+      "net_device": "virtio-net",
+      "format": "qcow2",
+      "qemu_binary": "qemu-system-x86_64",
+      "boot_wait": "5s",
+
+      "boot_command": [
+        "<esc><esc><enter><wait>",
+        "/install/vmlinuz ",
+        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+        "debian-installer={{user `locale`}} ",
+        "locale={{user `locale`}} ",
+        "time/zone={{user `timezone`}} ",
+        "kbd-chooser/method=us ",
+        "netcfg/get_hostname={{user `hostname`}} ",
+        "netcfg/get_domain={{user `domain`}} ",
+        "fb=false ",
+        "debconf/frontend=noninteractive ",
+        "console-setup/ask_detect=false ",
+        "console-keymaps-at/keymap={{user `kbd_lang`}} ",
+        "keyboard-configuration/layout={{user `kbd_layout`}} ",
+        "keyboard-configuration/variant={{user `kbd_layout`}} ",
+        "passwd/root-login=false ",
+        "passwd/user-fullname={{user `ssh_user`}} ",
+        "passwd/username={{user `ssh_user`}} ",
+        "passwd/user-password=\"{{user `ssh_user_pass`}}\" ",
+        "passwd/user-password-again=\"{{user `ssh_user_pass`}}\" ",
+        "passwd/user-uid={{user `ssh_user_id`}} ",
+		"preseed/late_command=\"in-target apt-get install -y curl; in-target curl -o /tmp/post_install.sh http://{{ .HTTPIP }}:{{ .HTTPPort }}/post_install.sh; in-target chmod +x /tmp/post_install.sh; in-target /tmp/post_install.sh {{user `ssh_port`}}\" ",
+        "initrd=/install/initrd.gz -- <enter>"
+      ],
+
+      "disk_size": "{{user `disk_size`}}",
+      "http_directory": ".packer/ubuntu14.04_amd64/http_server",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+      "iso_url": "{{user `iso_url`}}",
+      "communicator": "ssh",
+      "ssh_username": "{{user `ssh_user`}}",
+      "ssh_password": "{{user `ssh_user_pass`}}",
+      "ssh_port": "{{user `ssh_port`}}",
+      "ssh_wait_timeout": "{{user `ssh_wait_timeout`}}",
+      "shutdown_command": "echo '{{user `ssh_user_pass`}}' | sudo -S shutdown -P now",
+      "output_directory": "{{user `outputs_dir`}}/{{build_name}}/"
+    }
+  ],
+
+  "provisioners": 
+  [
+    {
+	  "type": "shell",
+      "execute_command": "echo '{{user `ssh_user_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+	  "inline": 
+      [
+        "echo '{{user `ssh_user`}}    ALL = (ALL)  NOPASSWD: ALL' >> /etc/sudoers"
+      ]
+	},
+    {
+      "type": "ansible",
+      "playbook_file": "playbooks/app.yml",
+	  "groups": "{{user `ansible_groups`}}",
+	  "user": "{{user `ssh_user`}}",
+      "extra_arguments": 
+      [
+        "--vault-password-file",
+        "vault_pass"
+      ]
+    }
+  ]
+}
