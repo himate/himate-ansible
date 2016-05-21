@@ -38,10 +38,11 @@ Private keys and other sensitive data are encrypted with `ansible-vault`. The pa
 openssl aes-256-cbc -k "<the-password>" -in vault_pass.enc -out vault_pass -d
 ```
 
-Next, you need to decrypt the sensitive templates:
+Next, you need to decrypt the sensitive templates and inventories (if necessary):
 
 ```
 sensitive_data.sh decrypt templates
+sensitive_data.sh decrypt inventories
 ```
 
 After that, you can rollout the playbooks:
@@ -58,5 +59,8 @@ Please ensure to keep sensitive data encrypted:
 ANSIBLE_VAULT_PASSWORD_FILE=vault_pass ansible-vault encrypt <file-to-encrypt>
 ```
 
-In case you are encrypting a template, please also add it to the template list inside `sensitive_data.sh`.
+In case you are encrypting a template or inventory file, please also add it to the dedicated list inside `sensitive_data.sh`.
 
+### Further Documentation
+
+Packer builds: `.packer/README.md` 
