@@ -7,6 +7,10 @@ travis-app
 ######
 # Grouping
 ######
+[travis:children]
+master
+app
+
 [app_travis:children]
 app
 

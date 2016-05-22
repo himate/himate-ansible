@@ -5,7 +5,7 @@
 ##########
 ansible:
 
-  decrypt_file_cmd: "ansible-vault --vault-password-file ../vault_pass view "
+  view_encrypted_file_cmd: "ansible-vault --vault-password-file {{ playbook_dir }}/../{{ lookup('env', 'ANSIBLE_VAULT_PASSWORD_FILE') }} view "
 
   headers:
     bash: "### THIS FILE IS MANAGED BY ANSIBLE ###"
@@ -16,5 +16,10 @@ ansible:
 #######
 pinning_config_map:
   nodejs: "5.11.1*"
+
+#######
+# Travis
+#######
+not_travis: "{{ not (is_travis | default(False)) }}"
 
 ...

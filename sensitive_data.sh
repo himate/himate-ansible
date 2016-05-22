@@ -1,8 +1,8 @@
 #!/bin/bash
 
-SENSITIVE_TEMPLATES="roles/ssh/templates/Ubuntu14_04.sshd_config.j2\
-                     roles/users/files/sudoers\
-                     roles/users/templates/sudoers.group.j2"
+SENSITIVE_TEMPLATES="roles/ssh/templates/Ubuntu14_04.sshd_config.j2.enc\
+                     roles/users/files/sudoers.enc\
+                     roles/users/templates/sudoers.group.j2.enc"
 
 SENSITIVE_VARS="roles/users/defaults/main.yml\
                 group_vars/app.yml\

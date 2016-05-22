@@ -7,6 +7,11 @@
   include: "{{ ansible_distribution }}{{ ansible_distribution_version }}.yml"
   when: "{{ sshd_do_configure | default(True) }}"
 
+- name: Decrypt sshd_config template
+  local_action: "shell {{ ansible.view_encrypted_file_cmd }}{{ role_path }}/templates/{{ sshd_config_template }}.enc > {{ role_path }}/templates/{{ sshd_config_template }}"
+  changed_when: False
+  when: "{{ not_travis }}"
+
 - name: Add sshd_config
   template:
     src={{ sshd_config_template }}
@@ -18,5 +23,10 @@
   when: "{{ sshd_do_configure | default(True) }}"
   vars:
     all_groups: "{{ user_group_list }}"
+
+- name: Remove decrypted sshd_config template
+  local_action: "file path={{ role_path }}/templates/{{ sshd_config_template }} state=absent"
+  changed_when: False
+  when: "{{ not_travis }}"
 
 ...
