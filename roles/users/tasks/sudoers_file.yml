@@ -1,5 +1,10 @@
 ---
 
+- name: Decrypt sudoers file
+  local_action: "shell {{ ansible.view_encrypted_file_cmd }}{{ role_path }}/files/sudoers.enc > {{ role_path }}/files/sudoers"
+  changed_when: False
+  when: "{{ not_travis }}"
+
 - name: Add sudoers top file
   copy:
     src=files/sudoers
@@ -7,6 +12,12 @@
     owner=root
     group=root
     mode=440
+    validate="visudo -cf %s"
   when: "{{ configure_sudoers_top_file | default(True) }}"
+
+- name: Remove decrypted sudoers file
+  local_action: "file path={{ role_path }}/files/sudoers state=absent"
+  changed_when: False
+  when: "{{ not_travis }}"
 
 ...

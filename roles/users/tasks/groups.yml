@@ -7,6 +7,10 @@
     state={{ item.state }}
   with_items: "{{ user_group_list }}"
 
+- name: Decrypt sudoers.group template
+  local_action: "shell {{ ansible.view_encrypted_file_cmd }}{{ role_path }}/templates/sudoers.group.j2.enc > {{ role_path }}/templates/sudoers.group.j2"
+  changed_when: False
+  when: "{{ not_travis }}"
 
 - name: Add admin groups to sudoers
   template: 
@@ -17,5 +21,10 @@
     group=root
   when: "{{ item.sudoers | default(False) }}"
   with_items: "{{ user_group_list }}"
+
+- name: Remove decrypted sudoers.group template
+  local_action: "file path={{ role_path }}/templates/sudoers.group.j2 state=absent"
+  changed_when: False
+  when: "{{ not_travis }}"
 
 ...

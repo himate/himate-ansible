@@ -10,22 +10,18 @@ addons:
     - travis-app
     - travis-master
 
-before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get install -qq python-apt
-  - openssl aes-256-cbc -k "$vault_file_pass" -in vault_pass.enc -out vault_pass -d
-
 install:
   - pip install ansible==${ANSIBLE_VERSION}
-  - ${TRAVIS_BUILD_DIR}/sensitive_data.sh decrypt templates
+  - openssl aes-256-cbc -k "$vault_file_pass" -in vault_pass.enc -out vault_pass -d
+  - ${TRAVIS_BUILD_DIR}/.travis/sensitive_data.sh decrypt
 
 script:
-  - "ansible-playbook -i inventories/travis ${PLAYBOOK} --vault-password-file vault_pass --syntax-check"
-  - "ansible-playbook -i inventories/travis ${PLAYBOOK} --vault-password-file vault_pass --connection=local --become"
-  - "ansible-playbook -i inventories/travis ${PLAYBOOK} --vault-password-file vault_pass --connection=local --become | tee /tmp/output.txt; grep -q 'changed=0.*failed=0' /tmp/output.txt && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)"
+  - "ANSIBLE_VAULT_PASSWORD_FILE=vault_pass ansible-playbook -i inventories/travis ${PLAYBOOK} --syntax-check --extra-vars='{\"disable_log\": \"yes\"}'"
+  - "ANSIBLE_VAULT_PASSWORD_FILE=vault_pass ansible-playbook -i inventories/travis ${PLAYBOOK} --connection=local --become --extra-vars='{\"disable_log\": \"yes\"}'"
+  - "ANSIBLE_VAULT_PASSWORD_FILE=vault_pass ansible-playbook -i inventories/travis ${PLAYBOOK} --connection=local --become --extra-vars='{\"disable_log\": \"yes\"}' | tee /tmp/output.txt; grep -q 'changed=0.*failed=0' /tmp/output.txt && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)"
 
 after_script:
-  - ${TRAVIS_BUILD_DIR}/sensitive_data.sh encrypt templates
+  - ${TRAVIS_BUILD_DIR}/.travis/sensitive_data.sh clean
   - shred vault_pass
 
 env:
