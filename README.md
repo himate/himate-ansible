@@ -58,7 +58,8 @@ Please ensure to keep sensitive data encrypted:
 ANSIBLE_VAULT_PASSWORD_FILE=vault_pass ansible-vault encrypt <file-to-encrypt>
 ```
 
-Please also add the encrypted file to the dedicated list inside `sensitive_data.sh`.
+Please also add the encrypted file to the dedicated list inside `sensitive_data.sh`. 
+Encrypted templates must have the ending `.enc` and be also added to `.travis/sensitive_data.sh`.
 
 ### Further Documentation
 
