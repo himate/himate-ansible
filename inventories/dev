@@ -7,6 +7,10 @@ vg-app
 ######
 # Grouping
 ######
+[dev:children]
+master
+app
+
 [app_dev:children]
 app
 

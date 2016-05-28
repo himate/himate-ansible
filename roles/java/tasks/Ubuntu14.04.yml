@@ -1,0 +1,23 @@
+---
+
+- name: Add java repository key
+  apt_key:
+    keyserver={{ java_repo_key_server }}
+    id={{ java_repo_key_id }}
+
+- name: Add java repository to apt
+  apt_repository:
+    repo={{ java_repo }}
+
+- name: Accept Oracle Java License
+  debconf:
+    name={{ java_pkg }}
+    question="shared/accepted-oracle-license-v1-1"
+    value="true"
+    vtype="select"
+
+- name: Install java
+  apt:
+    name={{ java_pkg }}
+
+...

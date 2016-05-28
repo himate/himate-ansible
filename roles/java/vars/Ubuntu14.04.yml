@@ -1,0 +1,7 @@
+######
+# Install
+######
+java_repo_key_server: "pool.sks-keyservers.net"
+java_repo_key_id: "EEA14886"
+java_repo: "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main"
+java_pkg: "oracle-java8-installer"

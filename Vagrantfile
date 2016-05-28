@@ -31,17 +31,6 @@ boxes = {
     copy: [ '.vagrant/ssh/local.dev.public.key' ],
 	exec: ['.vagrant/ssh/ubuntu1404.deploy.local.dev.keys.sh' ],
   },
-
-  ######
-  # Management box
-  ######
-  'management' => { 
-    dist: 'ubuntu/trusty64',
-    mem: 2048,
-    ip: '10.10.10.12',
-    copy: [ '.vagrant/ssh/local.dev.public.key' ],
-	exec: ['.vagrant/ssh/ubuntu1404.deploy.local.dev.keys.sh' ],
-  },
 }
 
 
