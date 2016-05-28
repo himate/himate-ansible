@@ -31,6 +31,5 @@ env:
   matrix:
     - PLAYBOOK=playbooks/app.yml
     - PLAYBOOK=playbooks/master.yml
-    - PLAYBOOK=playbooks/management.yml
 
 ...

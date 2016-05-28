@@ -4,21 +4,15 @@ travis-master
 [app]
 travis-app
 
-[management]
-travis-management
-
 ######
 # Grouping
 ######
 [travis:children]
 master
 app
-management
 
 [app_travis:children]
 app
 
 [master_travis:children]
 master
-
-[management_travis:children]

@@ -5,6 +5,5 @@
 
 - name: java distribution specific install
   include: "{{ ansible_distribution }}{{ ansible_distribution_version }}.yml"
-  when: "{{ sshd_do_configure | default(True) }}"
 
 ...
