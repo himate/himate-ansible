@@ -1,0 +1,34 @@
+---
+
+######
+# Install
+######
+jenkins_repo_key: "https://jenkins-ci.org/debian/jenkins-ci.org.key"
+jenkins_repo: "deb http://pkg.jenkins-ci.org/debian binary/"
+jenkins_pkg: "jenkins"
+
+######
+# Dirs
+######
+jenkins_home_dir: "/home/jenkins"
+jenkins_log_dir: "/home/himate/log/jenkins"
+
+######
+# Management
+######
+jenkins_service: "jenkins"
+jenkins_service_restart_id: "restart jenkins service"
+jenkins_user: "jenkins"
+jenkins_group: "jenkins"
+
+######
+# Config
+######
+jenkins_config_template: "{{ ansible_distribution }}{{ ansible_distribution_version }}_config.j2"
+jenkins_config: "/etc/default/jenkins"
+jenkins_port: 8080
+jenkins_xmx: "2048m"
+jenkins_xms: "512m"
+jenkinsmax_perm_size: "256m"
+
+...
