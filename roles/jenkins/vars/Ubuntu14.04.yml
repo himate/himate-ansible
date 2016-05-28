@@ -29,6 +29,6 @@ jenkins_config: "/etc/default/jenkins"
 jenkins_port: 8080
 jenkins_xmx: "2048m"
 jenkins_xms: "512m"
-jenkinsmax_perm_size: "256m"
+jenkins_max_perm_size: "256m"
 
 ...

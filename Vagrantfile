@@ -14,7 +14,7 @@ boxes = {
   ######
   'master' => {
     dist: 'ubuntu/trusty64',
-    mem:  512,
+    mem:  2048,
     ip: '10.10.10.10',
     copy: [ '~/.gitconfig', '.vagrant/ssh/local.dev.private.key', '.vagrant/ssh/local.dev.public.key' ],
     exec: [ '.vagrant/ssh/ubuntu1404.deploy.local.dev.keys.sh', '.vagrant/master.ubuntu1404.sh' ],
