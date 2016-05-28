@@ -4,11 +4,22 @@ vg-master
 [app]
 vg-app
 
+[management]
+vg-management
+
 ######
 # Grouping
 ######
+[dev:children]
+master
+app
+management
+
 [app_dev:children]
 app
 
 [master_dev:children]
 master
+
+[management_dev:children]
+management
