@@ -1,0 +1,6 @@
+---
+
+- name: jenkins distribution specific handler
+  include: "{{ ansible_distribution }}{{ ansible_distribution_version }}.yml"
+
+...

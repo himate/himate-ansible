@@ -4,6 +4,7 @@
 # Specify ansible repository and domain here
 #########
 ANSIBLE_REPO=git@github.com:himate/himate-infrastructure.git
+ANSIBLE_VERSION=2.0.1.0
 REPO_DOMAIN=github.com
 
 
@@ -34,7 +35,8 @@ sudo apt-get install language-pack-en -y
 ######
 # Install Ansible
 apt-get install -y git python-dev python-pip
-pip install git+https://github.com/ansible/ansible
+pip install ansible==$ANSIBLE_VERSION
+pip install markupsafe
 
 
 ######
