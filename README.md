@@ -9,7 +9,7 @@ This repository contains code for our infrastructure.
 
 ### Ansible
 
-We currently use ansible to provision our servers.
+Our provisioning scripts are tested with `Ansible 2.1`.
 
 #### Local development with Vagrant
 
