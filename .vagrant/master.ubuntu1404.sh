@@ -4,7 +4,7 @@
 # Specify ansible repository and domain here
 #########
 ANSIBLE_REPO=git@github.com:himate/himate-infrastructure.git
-ANSIBLE_VERSION=2.0.1.0
+ANSIBLE_VERSION=2.1
 REPO_DOMAIN=github.com
 
 
