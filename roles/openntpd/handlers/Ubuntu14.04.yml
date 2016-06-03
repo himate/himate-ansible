@@ -1,0 +1,9 @@
+---
+
+- name: "{{ openntpd_restart_id }}"
+  service: 
+    name={{ openntpd_service }}
+    state=restarted
+    enabled=yes
+
+...

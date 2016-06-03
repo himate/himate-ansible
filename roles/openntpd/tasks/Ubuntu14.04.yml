@@ -1,10 +1,10 @@
 ---
 
-- name: Install ntpd packages
+- name: Install openntpd packages
   apt:
     name={{ item }}
     state=present
     update_cache=yes
-  with_items: "{{ ntpd_packages }}"
+  with_items: "{{ openntpd_packages }}"
 
 ...
