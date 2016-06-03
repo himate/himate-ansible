@@ -8,11 +8,11 @@
 
 - name: Deploy ntpd.conf
   template:
-    src={{ ntpd_conf_template }}
-    dest={{ ntpd_conf_file }}
-    mode={{ ntpd_conf_file_mode }}
-    owner={{ ntpd_conf_file_owner }}
-    group={{ ntpd_conf_file_group }}
-  notify: "{{ ntpd_restart_id }}"
+    src={{ openntpd_conf_template }}
+    dest={{ openntpd_conf_file }}
+    mode={{ openntpd_conf_file_mode }}
+    owner={{ openntpd_conf_file_owner }}
+    group={{ openntpd_conf_file_group }}
+  notify: "{{ openntpd_restart_id }}"
 
 ...

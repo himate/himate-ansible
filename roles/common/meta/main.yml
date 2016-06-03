@@ -4,7 +4,7 @@ dependencies:
   - { role: users }
   - { role: ssh }
   - { role: pinning }
-  - { role: ntpd }
+  - { role: openntpd }
   - { role: logrotate }
 
 ...

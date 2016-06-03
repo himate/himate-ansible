@@ -1,0 +1,12 @@
+---
+
+openntpd_conf_file: "/etc/openntpd/ntpd.conf"
+openntpd_service: "openntpd"
+openntpd_conf_file_mode: "644"
+openntpd_conf_file_owner: "root"
+openntpd_conf_file_group: "root"
+openntpd_conf_template: "templates/ntp.conf.j2"
+openntpd_packages:
+  - "openntpd"
+
+...
