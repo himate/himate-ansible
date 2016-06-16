@@ -17,7 +17,6 @@ jenkins_log_dir: "/home/himate/log/jenkins"
 # Management
 ######
 jenkins_service: "jenkins"
-jenkins_service_restart_id: "restart jenkins service"
 jenkins_user: "jenkins"
 jenkins_group: "jenkins"
 
