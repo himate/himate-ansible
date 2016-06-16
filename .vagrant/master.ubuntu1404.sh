@@ -34,7 +34,7 @@ sudo apt-get install language-pack-en -y
 # Ansible
 ######
 # Install Ansible
-apt-get install -y git python-dev python-pip
+apt-get install -y git python-dev python-pip libyaml-dev
 pip install ansible==$ANSIBLE_VERSION
 pip install markupsafe
 
