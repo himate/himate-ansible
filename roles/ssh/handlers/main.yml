@@ -1,6 +1,9 @@
 ---
 
-- name: ssh distribution specific handler
-  include: "{{ ansible_distribution }}{{ ansible_distribution_version }}.yml"
+- name: "{{ sshd_service_restart_id }}"
+  service: 
+    name={{ sshd_service }} 
+    state=restarted
+    enabled=yes
 
 ...

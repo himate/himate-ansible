@@ -1,9 +1,0 @@
----
-
-- name: "{{ sshd_service_restart_id }}"
-  service: 
-    name={{ sshd_service }} 
-    state=restarted
-    enabled=yes
-
-...
