@@ -1,6 +1,9 @@
 ---
 
-- name: openntpd distribution specific handler
-  include: "{{ ansible_distribution }}{{ ansible_distribution_version }}.yml"
+- name: "{{ openntpd_restart_id }}"
+  service: 
+    name={{ openntpd_service }}
+    state=restarted
+    enabled=yes
 
 ...

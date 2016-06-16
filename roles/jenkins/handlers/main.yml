@@ -1,6 +1,9 @@
 ---
 
-- name: jenkins distribution specific handler
-  include: "{{ ansible_distribution }}{{ ansible_distribution_version }}.yml"
+- name: "{{ jenkins_service_restart_id }}"
+  service: 
+    name={{ jenkins_service }} 
+    state=restarted
+    enabled=yes
 
 ...

@@ -1,9 +1,0 @@
----
-
-- name: "{{ jenkins_service_restart_id }}"
-  service: 
-    name={{ jenkins_service }} 
-    state=restarted
-    enabled=yes
-
-...
