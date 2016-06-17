@@ -1,5 +1,7 @@
 ---
 
+environment_name: "dev"
+
 is_travis: True
 configure_sudoers_top_file: False
 
