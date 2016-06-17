@@ -1,0 +1,24 @@
+---
+
+- name: Setup nginx proxies
+  template:
+    src={{ item.value.template }}
+    dest={{ nginx_dirs.sites_enabled.path }}/{{ item.value.domain }}.conf
+    mode=0644
+    owner=root
+    group=root
+  notify: "{{ nginx_service_restart_id }}"
+  with_dict: "{{ nginx_sites_enabled | default({}) }}" 
+
+
+- name: Deploy passwd files
+  htpasswd: 
+    path={{ item.file }}
+    name={{ item.user }}
+    password={{ item.password }} 
+    owner={{ item.owner }}
+    group={{ item.group }}
+    mode={{ item.mode | default('0640')}}
+  with_dict: "{{ nginx_passwd_files | default({}) }}"
+
+...

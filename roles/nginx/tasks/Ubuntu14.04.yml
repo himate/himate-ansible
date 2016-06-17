@@ -1,0 +1,44 @@
+---
+
+- name: Add nginx repository key
+  apt_key:
+    url={{ nginx_repo_key }}
+
+
+- name: Add nginx repository to apt
+  apt_repository:
+    repo={{ nginx_repo }}
+
+
+- name: Install nginx
+  apt:
+    name={{ item }}
+  with_items: "{{ nginx_packages }}"
+
+
+- name: Install passlib python module for passwd file setup via ansible
+  pip:
+    name=passlib
+
+
+- name: Create nginx dirs
+  file: 
+    path={{ item.value.path }} 
+    owner={{ item.value.owner }}
+    group={{ item.value.group }}
+    state=directory 
+    mode={{ item.value.mode }}
+  with_dict: "{{ nginx_dirs }}"
+
+
+- name: Deploy nginx default files and configs
+  template:
+    src={{ item.value.src }}
+    dest={{ item.value.dest }}
+    owner={{ item.value.owner }}
+    group={{ item.value.group }}
+    mode={{ item.value.mode }}
+  with_dict: "{{ nginx_file_templates }}"
+  notify: "{{ nginx_service_restart_id }}"
+
+...

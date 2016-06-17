@@ -1,0 +1,31 @@
+{{ ansible.headers.bash }}
+upstream jenkins {
+  server 127.0.0.1:8080 fail_timeout=0;
+}
+
+server {
+  listen 80;
+  server_name {{ item.value.domain }};
+  return 301 https://$host$request_uri;
+}
+
+server {
+  listen 443 ssl;
+  server_name {{ item.value.domain }};
+
+  ssl_certificate {{ item.value.ssl_cert }};
+  ssl_certificate_key {{ item.value.ssl_key }};
+
+  access_log {{ item.value.log_dir | default(nginx_dirs.log.path) }}/jenkins.access.log;
+  error_log {{ item.value.log_dir | default(nginx_dirs.log.path) }}/jenkins.error.log;
+
+  location / {
+    proxy_set_header        Host $host:$server_port;
+    proxy_set_header        X-Real-IP $remote_addr;
+    proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header        X-Forwarded-Proto $scheme;
+    proxy_redirect http:// https://;
+    proxy_pass              http://jenkins;
+  }
+}
+

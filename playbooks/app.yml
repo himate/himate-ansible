@@ -5,8 +5,8 @@
   no_log: "{{ disable_log | default('no') }}"
   roles:
     - ../roles/common
-    - ../roles/himate
     - ../roles/nodejs
+    - ../roles/nginx
 
   tags:
     - app

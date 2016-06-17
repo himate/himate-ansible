@@ -1,0 +1,16 @@
+---
+
+- name: include distribution specific vars
+  include_vars: "{{ ansible_distribution }}{{ ansible_distribution_version }}.yml"
+
+- name: include distribution specific vars
+  include_vars: "{{ ansible_distribution }}{{ ansible_distribution_version }}_{{ environment_name }}_env.yml"
+
+- name: Install necessary base packages
+  apt:
+    name={{ item }}
+    state=present
+    update_cache=yes
+  with_items: "{{ common_packages + additional_packages }}"
+
+...

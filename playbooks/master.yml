@@ -6,6 +6,7 @@
   roles:
     - ../roles/common
     - ../roles/jenkins
+    - ../roles/nginx
 
   tags:
     - master
