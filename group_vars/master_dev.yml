@@ -2,4 +2,14 @@
 
 sshd_do_configure: False
 
+#####
+# Nginx sites
+#####
+nginx_sites_enabled:
+  jenkins:
+    template: "templates/sites-enabled/jenkins.conf.j2"
+    domain: "local.jenkins.himate.org"
+    ssl_cert: "{{ nginx_dev_ssl_cert }}"
+    ssl_key: "{{ nginx_dev_ssl_key }}"
+
 ...

@@ -1,0 +1,64 @@
+######
+# Install
+######
+nginx_repo_key: "http://nginx.org/keys/nginx_signing.key"
+nginx_repo: "deb http://nginx.org/packages/ubuntu/ trusty nginx"
+nginx_packages: 
+  - "nginx"
+
+######
+# Service
+######
+nginx_service: "nginx"
+
+######
+# Dirs
+######
+nginx_dirs:
+  sites_enabled:
+    path: "/etc/nginx/sites-enabled"
+    owner: "root"
+    group: "root"
+    mode: "775"
+
+  log:
+    path: "{{ himate_dirs.log.path }}/nginx"
+    owner: "{{ himate_dirs.log.owner }}"
+    group: "{{ himate_dirs.log.group }}"
+    mode: "740" 
+
+######
+# SSL for dev
+######
+nginx_dev_ssl_cert: "/etc/ssl/certs/ssl-cert-snakeoil.pem" 
+nginx_dev_ssl_key: "/etc/ssl/private/ssl-cert-snakeoil.key" 
+
+######
+# Config / Files
+######
+nginx_file_templates:
+  config: 
+    src: "templates/Ubuntu14.04.nginx.conf.j2"
+    dest: "/etc/nginx/nginx.conf"
+    owner: "root"
+    group: "root"
+    mode: "644"
+  default_page:
+    src: "templates/default.page.conf.j2"
+    dest: "/etc/nginx/conf.d/default.conf"
+    owner: "root"
+    group: "root"
+    mode: "644"
+  40x:
+    src: "templates/40x.html.j2"
+    dest: "/usr/share/nginx/html/40x.html"
+    owner: "root"
+    group: "root"
+    mode: "744"
+  50x:
+    src: "templates/50x.html.j2"
+    dest: "/usr/share/nginx/html/50x.html"
+    owner: "root"
+    group: "root"
+    mode: "744"
+

@@ -17,6 +17,7 @@ ansible:
 pinning_config_map:
   nodejs: "5.11.1*"
   jenkins: "2.6*"
+  nginx: "1.10.1*"
 
 #######
 # Travis

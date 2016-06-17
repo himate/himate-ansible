@@ -1,0 +1,6 @@
+---
+
+additional_packages:
+  - "ssl-cert"
+
+...

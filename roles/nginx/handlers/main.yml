@@ -1,0 +1,9 @@
+---
+
+- name: "{{ nginx_service_restart_id }}"
+  service: 
+    name={{ nginx_service }} 
+    state=restarted
+    enabled=yes
+
+...
