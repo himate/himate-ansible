@@ -1,0 +1,29 @@
+---
+
+- name: Include customer app vars
+  include_vars: "{{ ansible_distribution }}{{ ansible_distribution_version }}_customer.yml"
+  when: "{{ 'customer' in app_types }}"
+
+- name: Include customer app
+  include: "{{ ansible_distribution }}{{ ansible_distribution_version }}_customer.yml"
+  when: "{{ 'customer' in app_types }}"
+
+
+- name: Include merchant app vars
+  include_vars: "{{ ansible_distribution }}{{ ansible_distribution_version }}_merchant.yml"
+  when: "{{ 'merchant' in app_types }}"
+
+- name: Include customer app
+  include: "{{ ansible_distribution }}{{ ansible_distribution_version }}_merchant.yml"
+  when: "{{ 'merchant' in app_types }}"
+
+
+- name: Include admin app vars
+  include_vars: "{{ ansible_distribution }}{{ ansible_distribution_version }}_admin.yml"
+  when: "{{ 'admin' in app_types }}"
+
+- name: Include admin app
+  include: "{{ ansible_distribution }}{{ ansible_distribution_version }}_admin.yml"
+  when: "{{ 'admin' in app_types }}"
+
+...

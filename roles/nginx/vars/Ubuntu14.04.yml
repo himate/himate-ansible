@@ -6,6 +6,9 @@ nginx_repo: "deb http://nginx.org/packages/ubuntu/ trusty nginx"
 nginx_packages: 
   - "nginx"
 
+nginx_pip_requirements:
+  - "passlib"
+
 ######
 # Service
 ######

@@ -1,0 +1,11 @@
+---
+
+- name: Create customer app dir
+  file:
+    path={{ app_customer_dir }}
+    owner={{ app_customer_dir_owner }}
+    group={{ app_customer_dir_group }}
+    mode={{ app_customer_dir_mode }}
+    state=directory
+
+...

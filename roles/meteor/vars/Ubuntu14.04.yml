@@ -1,0 +1,9 @@
+---
+
+meteor_install_script_url: "https://install.meteor.com/"
+
+meteor_pip_requirements: 
+  - "urllib3"
+  - "pyopenssl"
+  - "ndg-httpsclient"
+  - "pyasn1"

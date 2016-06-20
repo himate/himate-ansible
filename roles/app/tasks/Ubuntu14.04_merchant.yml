@@ -1,0 +1,11 @@
+---
+
+- name: Create merchant app dir
+  file:
+    path={{ app_merchant_dir }}
+    owner={{ app_merchant_dir_owner }}
+    group={{ app_merchant_dir_group }}
+    mode={{ app_merchant_dir_mode }}
+    state=directory
+
+...
