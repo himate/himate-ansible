@@ -13,4 +13,5 @@ fi
 mkdir -p /home/vagrant/.ssh
 touch /home/vagrant/.ssh/authorized_keys
 chown -R vagrant: /home/vagrant/.ssh
+sed -i -e '$a\' /home/vagrant/.ssh/authorized_keys
 cat /home/vagrant/.ssh/id_rsa.pub >> /home/vagrant/.ssh/authorized_keys
