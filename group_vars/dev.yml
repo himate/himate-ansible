@@ -2,6 +2,6 @@
 
 environment_name: "dev"
 
-ssh_do_configure: False
+sshd_do_configure: False
 
 ...
