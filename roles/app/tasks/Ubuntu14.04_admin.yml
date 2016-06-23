@@ -1,0 +1,11 @@
+---
+
+- name: Create admin app dir
+  file:
+    path={{ app_admin_dir }}
+    owner={{ app_admin_dir_owner }}
+    group={{ app_admin_dir_group }}
+    mode={{ app_admin_dir_mode }}
+    state=directory
+
+...

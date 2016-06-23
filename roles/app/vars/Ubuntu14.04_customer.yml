@@ -1,0 +1,6 @@
+---
+
+app_customer_dir: "{{ himate_dirs.app.path }}/customer"
+app_customer_dir_owner: "{{ himate_dirs.app.owner }}"
+app_customer_dir_group: "{{ himate_dirs.app.group }}"
+app_customer_dir_mode: "750"

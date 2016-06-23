@@ -1,0 +1,34 @@
+{{ ansible.headers.bash }}
+server {
+    listen      80;
+    server_name {{ item.value.domain }};
+    rewrite     ^   https://$server_name$request_uri? permanent;
+
+    access_log {{ item.value.log_dir | default(nginx_dirs.log.path) }}/{{ item.value.domain }}.access.log;
+    error_log {{ item.value.log_dir | default(nginx_dirs.log.path) }}/{{ item.value.domain }}.error.log;
+}
+
+server {
+    listen 443 ssl;
+
+    server_name {{ item.value.domain }};
+
+    gzip on;
+    gzip_types *;
+
+    ssl_certificate {{ item.value.ssl_cert }};
+    ssl_certificate_key {{ item.value.ssl_key }};
+
+    access_log {{ item.value.log_dir | default(nginx_dirs.log.path) }}/{{ item.value.domain }}.access.log;
+    error_log {{ item.value.log_dir | default(nginx_dirs.log.path) }}/{{ item.value.domain }}.error.log;
+
+    location / {
+        proxy_pass http://127.0.0.1:{{ app_admin_port }};
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+

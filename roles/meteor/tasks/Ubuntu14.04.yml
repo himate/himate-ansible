@@ -1,0 +1,17 @@
+---
+
+- name: Install necessary pip packages for get_url
+  pip:
+    name={{ item }}
+  with_items: "{{ meteor_pip_requirements }}"
+
+- name: Get meteor install script
+  get_url:
+    url={{ meteor_install_script_url }}
+    dest=/tmp/meteor-install.sh
+    mode=755
+
+- name: Install meteor
+  shell: "/tmp/meteor-install.sh"
+  args:
+    creates: /usr/local/bin/meteor

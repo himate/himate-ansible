@@ -16,9 +16,29 @@ install:
   - ${TRAVIS_BUILD_DIR}/.travis/sensitive_data.sh decrypt
 
 script:
-  - "ANSIBLE_VAULT_PASSWORD_FILE=vault_pass ansible-playbook -i inventories/travis ${PLAYBOOK} --syntax-check --extra-vars='{\"disable_log\": \"yes\"}'"
-  - "ANSIBLE_VAULT_PASSWORD_FILE=vault_pass ansible-playbook -i inventories/travis ${PLAYBOOK} --connection=local --become --extra-vars='{\"disable_log\": \"yes\"}'"
-  - "ANSIBLE_VAULT_PASSWORD_FILE=vault_pass ansible-playbook -i inventories/travis ${PLAYBOOK} --connection=local --become --extra-vars='{\"disable_log\": \"yes\"}' | tee /tmp/output.txt; grep -q 'changed=0.*failed=0' /tmp/output.txt && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)"
+  - >
+    ANSIBLE_VAULT_PASSWORD_FILE=vault_pass
+    ansible-playbook ${PLAYBOOK}
+    -i inventories/travis
+    --syntax-check
+    --extra-vars "${EXTRAVARS}"
+
+  - >
+    ANSIBLE_VAULT_PASSWORD_FILE=vault_pass
+    ansible-playbook ${PLAYBOOK}
+    -i inventories/travis
+    --connection=local
+    --become
+    --extra-vars "${EXTRAVARS}"
+
+  - >
+    ANSIBLE_VAULT_PASSWORD_FILE=vault_pass
+    ansible-playbook ${PLAYBOOK}
+    -i inventories/travis
+    --connection=local
+    --become
+    --extra-vars "${EXTRAVARS}"
+    | tee /tmp/output.txt; grep -q 'changed=0.*failed=0' /tmp/output.txt && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)
 
 after_script:
   - ${TRAVIS_BUILD_DIR}/.travis/sensitive_data.sh clean
@@ -30,8 +50,10 @@ env:
     - ANSIBLE_VERSION=2.1
 
   matrix:
-    - PLAYBOOK=playbooks/app.yml
-    - PLAYBOOK=playbooks/master.yml
+    - PLAYBOOK: "playbooks/app.yml"
+      EXTRAVARS: "@.travis/app_extra_vars.json"
+    - PLAYBOOK: "playbooks/master.yml"
+      EXTRAVARS: "@.travis/master_extra_vars.json"
 
 notifications:
   slack:

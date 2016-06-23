@@ -2,4 +2,6 @@
 
 environment_name: "dev"
 
+sshd_do_configure: False
+
 ...

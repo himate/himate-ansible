@@ -1,0 +1,4 @@
+{
+  "disable_log": "yes", 
+  "app_types": ["customer", "merchant", "admin"]
+}

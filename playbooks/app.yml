@@ -6,7 +6,7 @@
   roles:
     - ../roles/common
     - ../roles/nodejs
-    - ../roles/git
+    - ../roles/app
     - ../roles/nginx
 
   tags:

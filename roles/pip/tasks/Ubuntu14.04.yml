@@ -5,4 +5,4 @@
     name={{ item }}
     state=present
     update_cache=yes
-  with_items: "{{ pip_packages }}"
+  with_items: "{{ pip_initial_install_packages }}"
