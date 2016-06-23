@@ -2,4 +2,24 @@
 
 sshd_do_configure: False
 
+#####
+# Nginx enabled sites
+#####
+nginx_sites_enabled:
+  customer:
+    template: "templates/sites-enabled/app.himate.org.conf.j2"
+    domain: "local.app.himate.org"
+    ssl_cert: "{{ nginx_dev_ssl_cert }}"
+    ssl_key: "{{ nginx_dev_ssl_key }}"
+  merchant:
+    template: "templates/sites-enabled/merchant.himate.org.conf.j2"
+    domain: "local.merchant.himate.org"
+    ssl_cert: "{{ nginx_dev_ssl_cert }}"
+    ssl_key: "{{ nginx_dev_ssl_key }}"
+  admin:
+    template: "templates/sites-enabled/admin.himate.org.conf.j2"
+    domain: "local.admin.himate.org"
+    ssl_cert: "{{ nginx_dev_ssl_cert }}"
+    ssl_key: "{{ nginx_dev_ssl_key }}"
+
 ...
