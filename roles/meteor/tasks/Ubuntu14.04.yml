@@ -11,7 +11,7 @@
     dest=/tmp/meteor-install.sh
     mode=755
 
-- name: Install meteor
-  shell: "/tmp/meteor-install.sh"
+- name: Install meteor version {{ meteor_version }}
+  shell: "/tmp/meteor-install.sh && su {{ himate_dirs.app.owner }} -c 'meteor --release {{ meteor_version }} --version'"
   args:
     creates: /usr/local/bin/meteor

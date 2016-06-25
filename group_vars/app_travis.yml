@@ -1,22 +1,29 @@
 ---
 
 #####
+# App domains
+#####
+app_customer_domain: "local.app.himate.org"
+app_merchant_domain: "local.merchant.himate.org"
+app_admin_domain: "local.admin.himate.org"
+
+#####
 # Nginx enabled sites
 #####
 nginx_sites_enabled:
   customer:
     template: "templates/sites-enabled/app.himate.org.conf.j2"
-    domain: "local.app.himate.org"
+    domain: "{{ app_customer_domain }}"
     ssl_cert: "{{ nginx_dev_ssl_cert }}"
     ssl_key: "{{ nginx_dev_ssl_key }}"
   merchant:
     template: "templates/sites-enabled/merchant.himate.org.conf.j2"
-    domain: "local.merchant.himate.org"
+    domain: "{{ app_merchant_domain }}"
     ssl_cert: "{{ nginx_dev_ssl_cert }}"
     ssl_key: "{{ nginx_dev_ssl_key }}"
   admin:
     template: "templates/sites-enabled/admin.himate.org.conf.j2"
-    domain: "local.admin.himate.org"
+    domain: "{{ app_admin_domain }}"
     ssl_cert: "{{ nginx_dev_ssl_cert }}"
     ssl_key: "{{ nginx_dev_ssl_key }}"
 

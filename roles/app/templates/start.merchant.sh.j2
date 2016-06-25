@@ -1,0 +1,17 @@
+#!/bin/bash
+
+{{ ansible.headers.bash }}
+
+# set environment
+export MONGO_URL='mongodb://127.0.0.1:27017/himate'
+export ROOT_URL='https://{{ app_merchant_domain }}'
+export PORT=3002
+export CUSTOMER_LOG='{{ app_merchant_log_dir }}/info.log'
+export CUSTOMER_ERROR_LOG='{{ app_merchant_log_dir }}/error.log'
+export SETTINGS_JSON='{{ app_merchant_dir }}/settings.json'
+
+# set meteor settings
+export METEOR_SETTINGS=$(cat $SETTINGS_JSON)
+
+# start the server
+forever start -o $CUSTOMER_LOG -e $CUSTOMER_ERROR_LOG {{ app_merchant_dir }}/bundle/main.js

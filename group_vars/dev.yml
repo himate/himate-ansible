@@ -4,4 +4,13 @@ environment_name: "dev"
 
 sshd_do_configure: False
 
+
+######
+# Settings to deploy
+######
+deploy_customer_settings_json: "dev/settings.json.enc"
+deploy_merchant_settings_json: "dev/settings.json.enc"
+deploy_admin_settings_json: "dev/settings.json.enc"
+
+
 ...

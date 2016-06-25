@@ -1,0 +1,37 @@
+---
+
+### App deploy
+- name: Clone merchant app repository for version {{ merchant_app_version }}
+  become: yes
+  become_user: "{{ deploy_merchant_app_user }}"
+  git:
+    repo={{ deploy_merchant_app_repo }}
+    dest={{ deploy_merchant_app_clone }}
+    version={{ merchant_app_version }}
+    accept_hostkey=yes
+
+- name: Build merchant app for version {{ merchant_app_version }}
+  become: yes
+  become_user: "{{ deploy_merchant_app_user }}"
+  shell: "PACKAGE_DIRS={{ deploy_merchant_app_clone }}/packages meteor --release {{ meteor_version }} build --directory {{ deploy_merchant_app_dir }}"
+  args: 
+    chdir: "{{ deploy_merchant_app_clone }}/apps/merchants"
+    creates: "{{ deploy_merchant_app_dir }}/bundle/main.js"
+
+### Config deploy
+- name: Clone merchant config repository for version {{ merchant_config_version }}
+  become: yes
+  become_user: "{{ deploy_merchant_app_user }}"
+  git:
+    repo={{ deploy_merchant_config_repo }}
+    dest={{ deploy_merchant_config_clone }}
+    version={{ merchant_config_version }}
+    accept_hostkey=yes
+
+# TODO: handle decryption
+- name: Deploy merchant config
+  become: yes
+  become_user: "{{ deploy_merchant_app_user }}"
+  shell: "cp {{ deploy_merchant_config_clone }}/{{ deploy_merchant_settings_json }} {{ deploy_merchant_app_dir }}"
+  args:
+    creates: "{{ deploy_merchant_app_dir }}/settings.json.enc"

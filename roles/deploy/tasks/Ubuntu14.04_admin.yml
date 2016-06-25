@@ -1,0 +1,37 @@
+---
+
+### App deploy
+- name: Clone admin app repository for version {{ admin_app_version }}
+  become: yes
+  become_user: "{{ deploy_admin_app_user }}"
+  git:
+    repo={{ deploy_admin_app_repo }}
+    dest={{ deploy_admin_app_clone }}
+    version={{ admin_app_version }}
+    accept_hostkey=yes
+
+- name: Build admin app for version {{ admin_app_version }}
+  become: yes
+  become_user: "{{ deploy_admin_app_user }}"
+  shell: "PACKAGE_DIRS={{ deploy_admin_app_clone }}/packages meteor --release {{ meteor_version }} build --directory {{ deploy_admin_app_dir }}"
+  args: 
+    chdir: "{{ deploy_admin_app_clone }}/apps/admins"
+    creates: "{{ deploy_admin_app_dir }}/bundle/main.js"
+
+### Config deploy
+- name: Clone admin config repository for version {{ admin_config_version }}
+  become: yes
+  become_user: "{{ deploy_admin_app_user }}"
+  git:
+    repo={{ deploy_admin_config_repo }}
+    dest={{ deploy_admin_config_clone }}
+    version={{ admin_config_version }}
+    accept_hostkey=yes
+
+# TODO: handle decryption
+- name: Deploy admin config
+  become: yes
+  become_user: "{{ deploy_admin_app_user }}"
+  shell: "cp {{ deploy_admin_config_clone }}/{{ deploy_admin_settings_json }} {{ deploy_admin_app_dir }}"
+  args:
+    creates: "{{ deploy_admin_app_dir }}/settings.json.enc"

@@ -1,0 +1,19 @@
+---
+
+#####
+# Repos
+#####
+deploy_merchant_app_repo: "https://github.com/himate/himate.git"
+deploy_merchant_config_repo: "https://github.com/himate/himate-config.git"
+
+#####
+# App
+#####
+deploy_merchant_app_user: "himate"
+
+#####
+# Dirs
+#####
+deploy_merchant_config_clone: "/tmp/himate-config"
+deploy_merchant_app_clone: "/tmp/himate"
+deploy_merchant_app_dir: "/home/himate/app/merchant"

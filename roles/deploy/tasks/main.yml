@@ -1,34 +1,25 @@
 ---
 
-- name: Include customer app vars
+- name: Include customer specific variables
   include_vars: "{{ ansible_distribution }}{{ ansible_distribution_version }}_customer.yml"
   when: "{{ 'customer' in app_types }}"
 
-- name: Include customer app
+- name: Include customer app deploy
   include: "{{ ansible_distribution }}{{ ansible_distribution_version }}_customer.yml"
   when: "{{ 'customer' in app_types }}"
 
-
-- name: Include merchant app vars
+- name: Include merchant specific variables
   include_vars: "{{ ansible_distribution }}{{ ansible_distribution_version }}_merchant.yml"
   when: "{{ 'merchant' in app_types }}"
 
-- name: Include customer app
+- name: Include merchant app deploy
   include: "{{ ansible_distribution }}{{ ansible_distribution_version }}_merchant.yml"
   when: "{{ 'merchant' in app_types }}"
 
-
-- name: Include admin app vars
+- name: Include admin specific variables
   include_vars: "{{ ansible_distribution }}{{ ansible_distribution_version }}_admin.yml"
   when: "{{ 'admin' in app_types }}"
 
-- name: Include admin app
+- name: Include admin app deploy
   include: "{{ ansible_distribution }}{{ ansible_distribution_version }}_admin.yml"
   when: "{{ 'admin' in app_types }}"
-
-- name: Install forever js
-  npm:
-    global=yes
-    name=forever
-
-...

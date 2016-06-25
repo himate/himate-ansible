@@ -1,6 +1,13 @@
 ---
 
+### App dir
 app_customer_dir: "{{ himate_dirs.app.path }}/customer"
 app_customer_dir_owner: "{{ himate_dirs.app.owner }}"
 app_customer_dir_group: "{{ himate_dirs.app.group }}"
 app_customer_dir_mode: "750"
+
+### Log dir
+app_customer_log_dir: "{{ himate_dirs.log.path }}/app/customer"
+app_customer_log_dir_owner: "{{ himate_dirs.app.owner }}"
+app_customer_log_dir_group: "{{ himate_dirs.app.group }}"
+app_customer_log_dir_mode: "750"
