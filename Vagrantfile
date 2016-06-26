@@ -26,7 +26,7 @@ boxes = {
   ######
   'app' => { 
     dist: 'ubuntu/trusty64',
-    mem: 512,
+    mem: 1024,
     ip: '10.10.10.11',
     copy: [ '.vagrant/ssh/local.dev.public.key' ],
 	exec: ['.vagrant/ssh/ubuntu1404.deploy.local.dev.keys.sh' ],
