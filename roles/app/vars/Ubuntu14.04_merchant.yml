@@ -1,6 +1,13 @@
 ---
 
+### App dir
 app_merchant_dir: "{{ himate_dirs.app.path }}/merchant"
 app_merchant_dir_owner: "{{ himate_dirs.app.owner }}"
 app_merchant_dir_group: "{{ himate_dirs.app.group }}"
 app_merchant_dir_mode: "750"
+
+### Log dir
+app_merchant_log_dir: "{{ himate_dirs.log.path }}/app/merchant"
+app_merchant_log_dir_owner: "{{ himate_dirs.app.owner }}"
+app_merchant_log_dir_group: "{{ himate_dirs.app.group }}"
+app_merchant_log_dir_mode: "750"

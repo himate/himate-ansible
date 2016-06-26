@@ -5,4 +5,11 @@ environment_name: "dev"
 is_travis: True
 configure_sudoers_top_file: False
 
+######
+# Settings to deploy
+######
+deploy_customer_settings_json: "dev/settings.json.enc"
+deploy_merchant_settings_json: "dev/settings.json.enc"
+deploy_admin_settings_json: "dev/settings.json.enc"
+
 ...

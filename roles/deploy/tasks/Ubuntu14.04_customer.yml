@@ -1,0 +1,37 @@
+---
+
+### App deploy
+- name: Clone customer app repository for version {{ customer_app_version }}
+  become: yes
+  become_user: "{{ deploy_customer_app_user }}"
+  git:
+    repo={{ deploy_customer_app_repo }}
+    dest={{ deploy_customer_app_clone }}
+    version={{ customer_app_version }}
+    accept_hostkey=yes
+
+- name: Build customer app for version {{ customer_app_version }}
+  become: yes
+  become_user: "{{ deploy_customer_app_user }}"
+  shell: "PACKAGE_DIRS={{ deploy_customer_app_clone }}/packages meteor --release {{ meteor_version }} build --directory {{ deploy_customer_app_dir }}"
+  args: 
+    chdir: "{{ deploy_customer_app_clone }}/apps/customers"
+    creates: "{{ deploy_customer_app_dir }}/bundle/main.js"
+
+### Config deploy
+- name: Clone customer config repository for version {{ customer_config_version }}
+  become: yes
+  become_user: "{{ deploy_customer_app_user }}"
+  git:
+    repo={{ deploy_customer_config_repo }}
+    dest={{ deploy_customer_config_clone }}
+    version={{ customer_config_version }}
+    accept_hostkey=yes
+
+# TODO: handle decryption
+- name: Deploy customer config
+  become: yes
+  become_user: "{{ deploy_customer_app_user }}"
+  shell: "cp {{ deploy_customer_config_clone }}/{{ deploy_customer_settings_json }} {{ deploy_customer_app_dir }}"
+  args:
+    creates: "{{ deploy_customer_app_dir }}/settings.json.enc"

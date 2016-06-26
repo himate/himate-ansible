@@ -1,0 +1,19 @@
+---
+
+#####
+# Repos
+#####
+deploy_admin_app_repo: "https://github.com/himate/himate.git"
+deploy_admin_config_repo: "https://github.com/himate/himate-config.git"
+
+#####
+# App
+#####
+deploy_admin_app_user: "himate"
+
+#####
+# Dirs
+#####
+deploy_admin_config_clone: "/tmp/himate-config"
+deploy_admin_app_clone: "/tmp/himate"
+deploy_admin_app_dir: "/home/himate/app/admin"

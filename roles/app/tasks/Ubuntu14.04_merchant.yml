@@ -8,4 +8,20 @@
     mode={{ app_merchant_dir_mode }}
     state=directory
 
+- name: Deploy merchant start script
+  template:
+    src=templates/start.merchant.sh.j2
+    dest={{ app_merchant_dir }}/start.sh
+    owner={{ app_merchant_dir_owner }}
+    group={{ app_merchant_dir_group }}
+    mode=740
+
+- name: Deploy merchant stop script
+  template:
+    src=templates/stop.merchant.sh.j2
+    dest={{ app_merchant_dir }}/stop.sh
+    owner={{ app_merchant_dir_owner }}
+    group={{ app_merchant_dir_group }}
+    mode=740
+
 ...

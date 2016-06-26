@@ -1,0 +1,19 @@
+---
+
+#####
+# Repos
+#####
+deploy_customer_app_repo: "https://github.com/himate/himate.git"
+deploy_customer_config_repo: "https://github.com/himate/himate-config.git"
+
+#####
+# App
+#####
+deploy_customer_app_user: "himate"
+
+#####
+# Dirs
+#####
+deploy_customer_config_clone: "/tmp/himate-config"
+deploy_customer_app_clone: "/tmp/himate"
+deploy_customer_app_dir: "/home/himate/app/customer"

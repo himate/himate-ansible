@@ -1,6 +1,13 @@
 ---
 
+### App dir
 app_admin_dir: "{{ himate_dirs.app.path }}/admin"
 app_admin_dir_owner: "{{ himate_dirs.app.owner }}"
 app_admin_dir_group: "{{ himate_dirs.app.group }}"
 app_admin_dir_mode: "750"
+
+### Log dir
+app_admin_log_dir: "{{ himate_dirs.log.path }}/app/admin"
+app_admin_log_dir_owner: "{{ himate_dirs.app.owner }}"
+app_admin_log_dir_group: "{{ himate_dirs.app.group }}"
+app_admin_log_dir_mode: "750"
