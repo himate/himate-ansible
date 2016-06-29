@@ -47,7 +47,7 @@ sensitive_data.sh decrypt inventories
 After that, you can rollout the playbooks:
 
 ```
-ANSIBLE_VAULT_PASSWORD_FILE=vault_pass ansible-playbook -i inventories/dev playbooks/<playbook-file>
+ANSIBLE_VAULT_PASSWORD_FILE=`pwd`/vault_pass ansible-playbook -i inventories/dev playbooks/<playbook-file>
 ```
 
 #### Encrypting sensitive data
