@@ -63,4 +63,4 @@ Encrypted templates must have the ending `.enc` and be also added to `.travis/se
 
 ### Further Documentation
 
-Packer builds: `.packer/README.md` 
+[Packer builds for docker and qemu images](https://github.com/himate/himate-infrastructure/blob/master/.packer/README.md)

@@ -3,7 +3,7 @@
 In order to use the templates make sure Packer is in your path and executable. 
 The provided templates are tested with Packer `0.10.0`.
 
-Decrypt the Packer variables:
+Decrypt the Packer variables (if necessary):
 
 ```
 ./sensitive_data.sh decrypt packer
@@ -21,8 +21,8 @@ Be sure to set `PACKER_ACCELERATOR` to the available acceleration on your machin
 From the top directory of this repository, source the wanted environment and then simply create the image:
 
 ```
-source .packer/ubuntu14.04_amd64/env_<vm-size>.sh
-packer build .packer/ubuntu14.04_amd64/templates/ubuntu14.04_amd64_qemu.json
+source .packer/ubuntu14.04_amd64/var_envs/qemu/app_test_kvm_<vm-size>.sh
+packer build .packer/ubuntu14.04_amd64/img_templates/qemu/app.json
 ```
 
 The qcow2 image is build to `.packer/builds`
@@ -55,4 +55,18 @@ To create a new logical device inside a volume group `vg_group` on the hyperviso
 
 ```
 sudo lvcreate -L <device_size - e.g. 25G> -n <device_name> <vg_group>
+```
+
+### Docker
+
+#### Requirements
+Make sure you have the necessary docker libraries installed for your system. 
+
+#### Docker images for app infrastructure
+We can build docker images for our app infrastructure (provisioned with our ansible roles).
+
+e.g., to build a docker image with the infrastructure necessary for all apps (merchant, customer and admin app) in test environment:
+```
+source .packer/ubuntu14.04_amd64/var_envs/docker/app_all_test.sh
+packer build .packer/ubuntu14.04_amd64/img_templates/docker/app_test_all.json
 ```
