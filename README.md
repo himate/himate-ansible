@@ -47,7 +47,7 @@ sensitive_data.sh decrypt inventories
 After that, you can rollout the playbooks:
 
 ```
-ANSIBLE_VAULT_PASSWORD_FILE=vault_pass ansible-playbook -i inventories/dev playbooks/<playbook-file>
+ANSIBLE_VAULT_PASSWORD_FILE=`pwd`/vault_pass ansible-playbook -i inventories/dev playbooks/<playbook-file>
 ```
 
 #### Encrypting sensitive data
@@ -63,4 +63,4 @@ Encrypted templates must have the ending `.enc` and be also added to `.travis/se
 
 ### Further Documentation
 
-Packer builds: `.packer/README.md` 
+[Packer builds for docker and qemu images](https://github.com/himate/himate-infrastructure/blob/master/.packer/README.md)

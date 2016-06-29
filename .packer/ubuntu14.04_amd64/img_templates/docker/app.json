@@ -1,0 +1,71 @@
+{
+  "description": "Build Ubuntu 14.04 amd64 Docker Image",
+
+  "variables": {
+    "outputs_dir": ".packer/builds",
+    "img_spec": "{{env `PACKER_IMG_SPEC`}}",
+    "hostname": "{{env `PACKER_HOST_NAME`}}",
+	"ansible_groups": "{{env `PACKER_ANSIBLE_GROUPS`}}",
+	"ansible_dir": "/tmp/packer-ansible-local",
+    "app_types": "{{env `PACKER_APP_TYPES`}}",
+	"app_customer_domain": "{{env `PACKER_APP_CUSTOMER_DOMAIN`}}",
+    "app_merchant_domain": "{{env `PACKER_APP_MERCHANT_DOMAIN`}}",
+    "app_admin_domain": "{{env `PACKER_APP_ADMIN_DOMAIN`}}"
+  },
+
+  "builders":
+  [
+    {
+      "type": "docker",
+	  "image": "ubuntu:14.04",
+      "name": "ubuntu14.04_{{user `img_spec`}}_docker",
+      "run_command": [ "-d", "-i", "-t", "--name", "{{user `hostname`}}", "{{.Image}}", "/bin/bash" ],
+      "export_path": "{{user `outputs_dir`}}/{{build_name}}"
+    }
+  ],
+
+  "provisioners": 
+  [
+    {
+      "type": "shell",
+	  "inline": 
+      [
+	    "sudo apt-get update",
+	    "sudo apt-get install -y curl apt-transport-https python-simplejson python-dev libssl-dev libffi-dev python-pip",
+		"sudo pip install -U ansible",
+		"mkdir -p {{user `ansible_dir`}}"
+	  ]
+	},
+    {
+	  "type": "file",
+	  "source": "vault_pass",
+	  "destination": "{{user `ansible_dir`}}/vault_pass"
+	},
+    {
+      "type": "ansible-local",
+	  "command": "ANSIBLE_VAULT_PASSWORD_FILE={{user `ansible_dir`}}/vault_pass ansible-playbook",
+      "playbook_file": "playbooks/app.yml",
+      "group_vars": "group_vars",
+	  "host_vars": "host_vars",
+	  "role_paths": [
+	    "roles/app", "roles/common", "roles/deploy", "roles/git", "roles/himate", 
+	    "roles/java", "roles/jenkins", "roles/logrotate", "roles/meteor", "roles/nginx", 
+		"roles/nodejs", "roles/openntpd", "roles/pinning", "roles/pip", "roles/ssh", "roles/users"
+	  ],
+	  "staging_directory": "{{user `ansible_dir`}}",
+	  "inventory_groups": "{{user `ansible_groups`}}",
+	  "extra_arguments": 
+	  [
+	    "--extra-vars",
+	    "'app_types={{user `app_types`}} app_customer_domain={{user `app_customer_domain`}} app_merchant_domain={{user `app_merchant_domain`}} app_admin_domain={{user `app_admin_domain`}}'"
+	  ]
+    },
+    {
+      "type": "shell",
+	  "inline": 
+      [
+	    "sudo apt-get upgrade -y"
+	  ]
+	}
+  ]
+}

@@ -17,14 +17,14 @@ install:
 
 script:
   - >
-    ANSIBLE_VAULT_PASSWORD_FILE=vault_pass
+    ANSIBLE_VAULT_PASSWORD_FILE=${TRAVIS_BUILD_DIR}/vault_pass
     ansible-playbook ${PLAYBOOK}
     -i inventories/travis
     --syntax-check
     --extra-vars "${EXTRAVARS}"
 
   - >
-    ANSIBLE_VAULT_PASSWORD_FILE=vault_pass
+    ANSIBLE_VAULT_PASSWORD_FILE=${TRAVIS_BUILD_DIR}/vault_pass
     ansible-playbook ${PLAYBOOK}
     -i inventories/travis
     --connection=local
@@ -32,7 +32,7 @@ script:
     --extra-vars "${EXTRAVARS}"
 
   - >
-    ANSIBLE_VAULT_PASSWORD_FILE=vault_pass
+    ANSIBLE_VAULT_PASSWORD_FILE=${TRAVIS_BUILD_DIR}/vault_pass
     ansible-playbook ${PLAYBOOK}
     -i inventories/travis
     --connection=local

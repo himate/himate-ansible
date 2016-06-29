@@ -8,7 +8,7 @@ SENSITIVE_VARS="roles/users/defaults/main.yml\
                 group_vars/app.yml\
                 group_vars/master.yml"
 
-SENSITIVE_PACKER=".packer/ubuntu14.04_amd64/var_envs/app_test_kvm_25G.sh"
+SENSITIVE_PACKER=".packer/ubuntu14.04_amd64/var_envs/qemu/app_test_kvm_25G.sh"
 
 SENSITIVE_INVENTORIES="inventories/test"
 
