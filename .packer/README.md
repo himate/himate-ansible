@@ -70,3 +70,6 @@ e.g., to build a docker image with the infrastructure necessary for all apps (me
 source .packer/ubuntu14.04_amd64/var_envs/docker/app_all_test.sh
 packer build .packer/ubuntu14.04_amd64/img_templates/docker/app_test_all.json
 ```
+
+Note, that currently this only provisions the infrastructure - without code deployment. 
+We will add another packer build which then uses this infrastructure image to deploy the code and create a ready to deploy image.
